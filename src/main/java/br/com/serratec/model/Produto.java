@@ -11,6 +11,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -24,12 +26,22 @@ public class Produto {
 	
 	private String nome;
 	
+	private Double preco;
+	
+	
 	@Enumerated(EnumType.STRING)
 	private CategoriaEnum categoriaEnum;
 	
 	@OneToMany(mappedBy = "id.produto")
 	private Set<ProdutoPedido> produtoPedidos = new HashSet<>();
 	
+	public Double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
 	public Long getId() {
 		return id;
 	}

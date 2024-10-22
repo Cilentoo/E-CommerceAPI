@@ -1,5 +1,7 @@
 package br.com.serratec.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.serratec.dto.ProdutoRequestDTO;
 import br.com.serratec.dto.ProdutoResponseDTO;
+import br.com.serratec.enums.CategoriaEnum;
 import br.com.serratec.model.Produto;
 import br.com.serratec.service.ProdutoService;
 
@@ -21,6 +24,13 @@ public class ProdutoController {
 	
 	@Autowired
 	private ProdutoService service;
+	
+	
+    @GetMapping("/categoria/{nomeCategoria}")
+    public List<Produto> listarPorCategoria(@PathVariable String nomeCategoria) {
+        CategoriaEnum categoriaEnum = CategoriaEnum.verifica(nomeCategoria); 
+        return service.listarPorCategoria(categoriaEnum);  
+    }
 	
 	@GetMapping("/{id}")
     public ResponseEntity<Produto> buscarProduto(@PathVariable Long id) {
