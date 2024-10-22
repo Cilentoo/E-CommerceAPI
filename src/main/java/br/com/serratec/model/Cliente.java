@@ -38,6 +38,7 @@ public class Cliente {
 	
 	private String complemento;
 	private String numero;
+	
 	public Long getId() {
 		return id;
 	}

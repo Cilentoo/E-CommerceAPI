@@ -1,6 +1,7 @@
 package br.com.serratec.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.JoinColumn;
@@ -40,4 +41,25 @@ public class ProdutoPedidoPK implements Serializable {
 		this.pedido = pedido;
 	}
 
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(pedido, produto);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProdutoPedidoPK other = (ProdutoPedidoPK) obj;
+		return Objects.equals(pedido, other.pedido) && Objects.equals(produto, other.produto);
+	}
+
+	
+	
 }

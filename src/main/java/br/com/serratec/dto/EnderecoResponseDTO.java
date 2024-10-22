@@ -1,19 +1,8 @@
-package br.com.serratec.model;
+package br.com.serratec.dto;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import br.com.serratec.model.Endereco;
 
-@Entity
-public class Endereco {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Schema(description = "Identificador único do endereço")
-	private Long id;
-
+public class EnderecoResponseDTO {
 	private String cep;
 
 	private String logradouro;
@@ -23,13 +12,18 @@ public class Endereco {
 	private String localidade;
 
 	private String uf;
+	
+	public EnderecoResponseDTO() {
 
-	public Long getId() {
-		return id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public EnderecoResponseDTO(Endereco endereco) {
+		this.cep = endereco.getCep();
+		this.logradouro = endereco.getLogradouro();
+		this.bairro = endereco.getBairro();
+		this.localidade = endereco.getLocalidade();
+		this.uf = endereco.getUf();
+
 	}
 
 	public String getCep() {
