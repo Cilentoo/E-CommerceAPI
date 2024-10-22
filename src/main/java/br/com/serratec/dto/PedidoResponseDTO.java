@@ -1,13 +1,12 @@
 package br.com.serratec.dto;
 
 import br.com.serratec.enums.StatusEnum;
-import br.com.serratec.model.Cliente;
 import br.com.serratec.model.Pedido;
 
 public class PedidoResponseDTO {
 
 	private StatusEnum status;
-	private Cliente cliente;
+	private Long clienteId;
 	
 	
 	public PedidoResponseDTO() {
@@ -16,7 +15,7 @@ public class PedidoResponseDTO {
 	
 	public PedidoResponseDTO(Pedido pedido) {
 		this.status = pedido.getStatus();
-		this.cliente = pedido.getCliente();
+		this.clienteId = pedido.getCliente().getId();
 	}
 
 
@@ -30,13 +29,13 @@ public class PedidoResponseDTO {
 	}
 
 
-	public Cliente getCliente() {
-		return cliente;
+	public Long getClienteId() {
+		return clienteId;
 	}
 
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setClienteId(Long clienteId) {
+		this.clienteId = clienteId;
 	}
 	
 	

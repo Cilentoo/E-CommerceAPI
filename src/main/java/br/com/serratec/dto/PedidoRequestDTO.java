@@ -4,14 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import br.com.serratec.enums.StatusEnum;
-import br.com.serratec.model.Cliente;
 import br.com.serratec.model.Pedido;
 import br.com.serratec.model.ProdutoPedido;
 
 public class PedidoRequestDTO {
 
 	private StatusEnum status;
-	private Cliente cliente;
+	private Long clienteId;
 	private Set<ProdutoPedido> produtoPedidos = new HashSet<>();
 	
 	public PedidoRequestDTO() {
@@ -19,10 +18,10 @@ public class PedidoRequestDTO {
 	
 	
 	
-	public PedidoRequestDTO(StatusEnum status, Cliente cliente, Set<ProdutoPedido> produtoPedidos) {
+	public PedidoRequestDTO(StatusEnum status, Set<ProdutoPedido> produtoPedidos, Long clienteId) {
 		super();
 		this.status = status;
-		this.cliente = cliente;
+		this.clienteId = clienteId;
 		this.produtoPedidos = produtoPedidos;
 	}
 
@@ -48,13 +47,18 @@ public class PedidoRequestDTO {
 		this.produtoPedidos = produtoPedidos;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+
+
+	public Long getClienteId() {
+		return clienteId;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+
+
+	public void setClienteId(Long clienteId) {
+		this.clienteId = clienteId;
 	}
+
 	
 	
 }
