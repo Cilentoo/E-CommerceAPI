@@ -361,3 +361,6 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/Usuario
 	at org.h2.mvstore.SingleFileStore.open(SingleFileStore.java:81)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:286)
 	... 59 more
+2024-10-22 14:03:44.190442-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE FROM PEDIDO ID[*]=110"; SQL statement:
+DELETE FROM PEDIDO ID=110 [42000-224]
