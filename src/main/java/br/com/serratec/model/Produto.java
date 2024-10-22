@@ -4,6 +4,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import br.com.serratec.enums.CategoriaEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -27,8 +30,13 @@ public class Produto {
 	@Enumerated(EnumType.STRING)
 	private CategoriaEnum categoriaEnum;
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "id.produto")
 	private Set<ProdutoPedido> produtoPedidos = new HashSet<>();
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "produto")
+	private Set<Comentarios> comentarios = new HashSet<>(); 
 	
 	public Long getId() {
 		return id;
@@ -62,14 +70,20 @@ public class Produto {
 		this.produtoPedidos = produtoPedidos;
 	}
 	
-	
-
 	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Set<Comentarios> getComentarios() {
+		return comentarios;
+	}
+
+	public void setComentarios(Set<Comentarios> comentarios) {
+		this.comentarios = comentarios;
 	}
 
 	@Override

@@ -37,7 +37,6 @@ public class PedidoService {
 	public List<PedidoResponseDTO> listarPedidos() {
 		List<Pedido> pedidos = pedidoRepository.findAll();
 		List<PedidoResponseDTO> dtos = new ArrayList<>();
-
 		for (Pedido pedido : pedidos) {
 			dtos.add(new PedidoResponseDTO(pedido));
 		}

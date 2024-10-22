@@ -1,6 +1,7 @@
 package br.com.serratec.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.serratec.dto.ComentariosRequestDTO;
 import br.com.serratec.dto.ProdutoRequestDTO;
 import br.com.serratec.dto.ProdutoResponseDTO;
+import br.com.serratec.model.Comentarios;
 import br.com.serratec.model.Produto;
+import br.com.serratec.service.ComentarioService;
 import br.com.serratec.service.ProdutoService;
 
 
@@ -35,5 +39,14 @@ public class ProdutoController {
 	public ResponseEntity<Object> inserir(@RequestBody ProdutoRequestDTO dto){
 		ProdutoResponseDTO dtoResponse = service.inserir(dto);
 		return ResponseEntity.ok(dtoResponse);
+	}
+	
+	@Autowired
+	private ComentarioService comentarioService;
+	
+	@PostMapping("/{id}/comentarios")
+	public ResponseEntity<Comentarios> adicionarComentario(@PathVariable long id, @RequestBody ComentariosRequestDTO comentariosDTO){
+		Comentarios novoComentarios = comentarioService.adicionarComentario(id, comentariosDTO);
+		return ResponseEntity.status(HttpStatus.CREATED).body(novoComentarios);
 	}
 }
