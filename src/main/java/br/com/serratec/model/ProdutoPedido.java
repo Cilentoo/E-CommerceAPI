@@ -10,7 +10,7 @@ public class ProdutoPedido {
 	private ProdutoPedidoPK id = new ProdutoPedidoPK();
 	
 	private Double valorVenda;
-	private Double desconto;
+	private String desconto;
 	private Integer quantidade;
 	
 	
@@ -18,7 +18,7 @@ public class ProdutoPedido {
 		
 	}
 	
-	public ProdutoPedido(Pedido pedido, Produto produto , ProdutoPedidoPK id, Double valorVenda, Double desconto, Integer quantidade) {
+	public ProdutoPedido(Pedido pedido, Produto produto , ProdutoPedidoPK id, Double valorVenda, String desconto, Integer quantidade) {
 		this.id.setPedido(pedido);
 		this.id.setProduto(produto);
 		this.valorVenda = valorVenda;
@@ -38,10 +38,10 @@ public class ProdutoPedido {
 	public void setValorVenda(Double valorVenda) {
 		this.valorVenda = valorVenda;
 	}
-	public Double getDesconto() {
+	public String getDesconto() {
 		return desconto;
 	}
-	public void setDesconto(Double desconto) {
+	public void setDesconto(String desconto) {
 		this.desconto = desconto;
 	}
 	public Integer getQuantidade() {

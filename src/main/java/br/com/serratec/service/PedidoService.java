@@ -71,7 +71,38 @@ public class PedidoService {
 
 			pp.setDesconto(ppDto.getDesconto());
 			pp.setQuantidade(ppDto.getQuantidade());
-			pp.setValorVenda(ppDto.getValorVenda());
+			
+			if (ppDto.getDesconto().equals("EDU10")) {
+				Double valorVenda = ppDto.getValorVenda();
+				Integer quantidade = ppDto.getQuantidade();
+				valorVenda = valorVenda * quantidade - 10;
+				pp.setValorVenda(valorVenda);
+			}else if (ppDto.getDesconto().equals("CILENTO10")) {
+				Double valorVenda = ppDto.getValorVenda();
+				Integer quantidade = ppDto.getQuantidade();
+				valorVenda = valorVenda * quantidade - 10;
+				pp.setValorVenda(valorVenda);
+			}else if (ppDto.getDesconto().equals("THAIS10")) {
+				Double valorVenda = ppDto.getValorVenda();
+				Integer quantidade = ppDto.getQuantidade();
+				valorVenda = valorVenda * quantidade - 10;
+				pp.setValorVenda(valorVenda);
+			}else if (ppDto.getDesconto().equals("DAIANE10")) {
+				Double valorVenda = ppDto.getValorVenda();
+				Integer quantidade = ppDto.getQuantidade();
+				valorVenda = valorVenda * quantidade - 10;
+				pp.setValorVenda(valorVenda);
+			}else if (ppDto.getDesconto().equals("MARCOS10")) {
+				Double valorVenda = ppDto.getValorVenda();
+				Integer quantidade = ppDto.getQuantidade();
+				valorVenda = valorVenda * quantidade - 10;
+				pp.setValorVenda(valorVenda);
+			}else {
+				Double valorVenda = ppDto.getValorVenda();
+				Integer quantidade = ppDto.getQuantidade();
+				valorVenda = valorVenda * quantidade;
+				pp.setValorVenda(valorVenda);
+			}
 
 			produtoPedidos.add(pp);
 
