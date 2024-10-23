@@ -45,6 +45,14 @@ public class Cliente {
 	private String complemento;
 	private String numero;
 	
+	
+	@Override
+	public String toString() {
+		return "Id:" + id + "\n" + "Nome:" + nome + "\n" + "Email:" + email + "\n";
+	}
+	
+
+	
 	public Long getId() {
 		return id;
 	}

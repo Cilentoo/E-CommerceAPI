@@ -22,6 +22,8 @@ public class ClienteController {
 	@Autowired
 	private ClienteService service;
 	
+	
+	
 	@GetMapping
 	public ResponseEntity<List<ClienteReponseDTO>> listarClientes(){
 		return ResponseEntity.ok(service.listar());
@@ -30,6 +32,7 @@ public class ClienteController {
 	@PostMapping
 	public ResponseEntity<Object> inserir(@RequestBody ClienteRequestDTO dto){
 		ClienteReponseDTO dtoResponse = service.inserir(dto);
+		
 		return ResponseEntity.created(null).body(dtoResponse);
 	}
 }

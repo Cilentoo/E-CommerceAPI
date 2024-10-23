@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import br.com.serratec.config.MailConfig;
 import br.com.serratec.dto.ClienteReponseDTO;
 import br.com.serratec.dto.ClienteRequestDTO;
 import br.com.serratec.exception.EmailException;
@@ -27,6 +28,9 @@ public class ClienteService {
 	
 	@Autowired 
 	private EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	private MailConfig mailConfig;
 	
 	public List<ClienteReponseDTO> listar() {
 		List<Cliente> clientes = clienteRepository.findAll();
@@ -74,7 +78,9 @@ public class ClienteService {
 		//endereco.setUf(enderecoDTO.getUf());
 		
 		//cliente.setEndereco(endereco);
+		
 		cliente = clienteRepository.save(cliente);
+		mailConfig.sendEmail(cliente.getEmail(), "Confirmação de Cadastro", cliente.toString());
 		
 		return new ClienteReponseDTO(cliente);
 	}
