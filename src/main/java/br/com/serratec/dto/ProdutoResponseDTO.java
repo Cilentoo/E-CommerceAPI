@@ -4,14 +4,10 @@ import br.com.serratec.enums.CategoriaEnum;
 import br.com.serratec.model.Produto;
 
 public class ProdutoResponseDTO {
-
 	private String nome;
 	private Character tamanho;
 	private CategoriaEnum categoriaEnum;
 	
-	public ProdutoResponseDTO() {
-	}
-
 	public ProdutoResponseDTO(Produto produto) {
 		this.nome = produto.getNome();
 		this.tamanho = produto.getTamanho();

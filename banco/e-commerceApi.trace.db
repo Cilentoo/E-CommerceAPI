@@ -364,3 +364,6 @@ Caused by: org.h2.mvstore.MVStoreException: The file is locked: C:/Users/Usuario
 2024-10-22 14:03:44.190442-03:00 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE FROM PEDIDO ID[*]=110"; SQL statement:
 DELETE FROM PEDIDO ID=110 [42000-224]
+2024-10-22 16:05:40.347739-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PRODUTOS" not found; SQL statement:
+SELECT * FROM produtos [42102-224]

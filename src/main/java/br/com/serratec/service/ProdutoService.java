@@ -1,5 +1,6 @@
 package br.com.serratec.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,14 +28,21 @@ public class ProdutoService {
 	}
 	
 	@Transactional
-	public ProdutoResponseDTO inserir(ProdutoRequestDTO produtoDto) {
+	public ProdutoResponseDTO save(ProdutoRequestDTO produtoDto) {
 		Produto produto = new Produto();
 		produto.setNome(produtoDto.getNome());
 		produto.setTamanho(produtoDto.getTamanho());
 		produto.setCategoriaEnum(produtoDto.getCategoria());
-		produtoRepository.save(produto);
+		//produtoRepository.save(produto);
 		
-		return new ProdutoResponseDTO(produto);
+		Produto produtoSalvo = produtoRepository.save(produto);
+		
+		return new ProdutoResponseDTO(produtoSalvo);
+	}
+	
+	// Lista todos os produtos
+	public List<Produto> listarTodos() {
+	    return produtoRepository.findAll();
 	}
 
 }

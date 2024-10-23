@@ -19,10 +19,8 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+	private String nome;	
 	private Character tamanho;
-	
-	private String nome;
 	
 	@Enumerated(EnumType.STRING)
 	private CategoriaEnum categoriaEnum;
