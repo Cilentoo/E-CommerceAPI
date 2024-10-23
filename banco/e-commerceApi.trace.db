@@ -367,3 +367,6 @@ DELETE FROM PEDIDO ID=110 [42000-224]
 2024-10-22 16:05:40.347739-03:00 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PRODUTOS" not found; SQL statement:
 SELECT * FROM produtos [42102-224]
+2024-10-23 16:58:41.276909-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM CLIENTE USERS [*]CLIENTE"; SQL statement:
+SELECT * FROM CLIENTE USERS CLIENTE [42000-224]

@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class SecurityFilter extends OncePerRequestFilter { // executa 1x pra cada request da api
+public class SecurityFilter extends OncePerRequestFilter { // Executa 1x pra cada request da api
     @Autowired
     TokenService tokenService;
     @Autowired
@@ -38,7 +38,7 @@ public class SecurityFilter extends OncePerRequestFilter { // executa 1x pra cad
         filterChain.doFilter(request, response);
     }
 
-    // acessa o token
+    // Acessa o token
     private String recoverToken(HttpServletRequest request){
         var authHeader = request.getHeader("Authorization");
         if(authHeader == null) return null;

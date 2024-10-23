@@ -2,9 +2,6 @@ package br.com.serratec.dto;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-
 import br.com.serratec.enums.CategoriaEnum;
 import br.com.serratec.model.Produto;
 import br.com.serratec.model.ProdutoPedido;

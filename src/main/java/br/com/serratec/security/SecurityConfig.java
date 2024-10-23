@@ -18,14 +18,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private DetalheDeServico userDetailsService;
+//    @Autowired
+//    private DetalheDeServico userDetailsService;
 
     @Autowired
     SecurityFilter securityFilter;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @SuppressWarnings("removal")
+	@Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -33,20 +34,22 @@ public class SecurityConfig {
                 		.requestMatchers(HttpMethod.POST, "/auth/login").permitAll() // Permite acesso ao login
                         .requestMatchers(HttpMethod.POST, "/auth/cadastro").permitAll() // Permite acesso ao cadastro
                         .requestMatchers("/h2-console/**").permitAll() // Permite acesso ao H2 Console
+                        .requestMatchers(HttpMethod.POST, "/XXX").hasRole("ADMIN") // Definir o que será de permissão do admin
+                        .requestMatchers(HttpMethod.POST, "/XXX").hasRole("CLIENTE") // Definir o que será de permissão do admin                        
                         .anyRequest().authenticated() // Qualquer outra requisição deve ser autenticada
-                )
-                .headers(headers -> headers.frameOptions().sameOrigin()) // Permite que o H2 Console funcione
+                )                
+                .headers((headers) -> headers.disable()) // Permite que o H2 Console funcione
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 }

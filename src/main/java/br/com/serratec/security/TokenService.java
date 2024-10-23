@@ -34,7 +34,7 @@ public class TokenService {
 		}
 	}
 	
-	// valida o token
+	// Valida o token
 	public String validaToken(String token){
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
@@ -48,10 +48,10 @@ public class TokenService {
         }
     }
 	
-	// função que define o tempo para expirar o token
+	// Função que define o tempo para expirar o token
 	private Instant generateExpirationDate() {
 		return LocalDateTime.now()
-				.plusHours(2) // em horas
+				.plusHours(2) // Em horas
 				.toInstant(ZoneOffset.of("-03:00"));
 	}
 	

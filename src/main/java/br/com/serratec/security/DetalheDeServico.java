@@ -16,8 +16,8 @@ public class DetalheDeServico implements UserDetailsService {
 	@Autowired
 	private ClienteRepository repository;
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	    Cliente user = this.repository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+	    Cliente user = this.repository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
 	    return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
 	}	
 }

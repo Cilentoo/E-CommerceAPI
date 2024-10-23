@@ -1,3 +1,5 @@
 package br.com.serratec.dto;
 
-public record CadastroRequestDTO (String nome, String email, String cpf, String password) {}
+import br.com.serratec.enums.UsuarioRole;
+
+public record CadastroRequestDTO (String nome, String email, UsuarioRole role, String cpf, String password) {}

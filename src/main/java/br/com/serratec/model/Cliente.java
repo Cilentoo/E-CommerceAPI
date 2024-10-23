@@ -1,9 +1,13 @@
 package br.com.serratec.model;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import br.com.serratec.enums.UsuarioRole;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,10 +38,17 @@ public class Cliente {
 	private String cpf;
 
 	@Email
-	@Schema(description = "Email do cliente")
-	private String email;
+	@Schema(description = "Email do cliente") 
+	private String email; // Login
 
 	private String password;
+
+	private UsuarioRole role;
+	//@Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role == UsuarioRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_CLIENTE"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_CLIENTE"));
+    }
 
 	@OneToMany
 	private List<Pedido> pedido;
