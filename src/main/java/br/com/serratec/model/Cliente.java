@@ -35,8 +35,8 @@ public class Cliente {
 	@Schema(description = "Email do cliente")
 	private String email;
 	
-	@OneToMany
-	private List<Pedido> pedido;
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos;
 	
 	@ManyToOne
     @JoinColumn(name = "id_endereco")
@@ -71,6 +71,12 @@ public class Cliente {
 	}
 	public Endereco getEndereco() {
 		return endereco;
+	}
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
 	}
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;

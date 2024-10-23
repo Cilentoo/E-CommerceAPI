@@ -3,8 +3,10 @@ package br.com.serratec.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +23,8 @@ public class ClienteController {
 	
 	@Autowired
 	private ClienteService service;
-	
+
+	  
 	@GetMapping
 	public ResponseEntity<List<ClienteReponseDTO>> listarClientes(){
 		return ResponseEntity.ok(service.listar());
@@ -31,5 +34,11 @@ public class ClienteController {
 	public ResponseEntity<Object> inserir(@RequestBody ClienteRequestDTO dto){
 		ClienteReponseDTO dtoResponse = service.inserir(dto);
 		return ResponseEntity.created(null).body(dtoResponse);
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<ClienteReponseDTO> listarPorId(@PathVariable Long id) {
+		ClienteReponseDTO ClienteDTO = service.listarPorId(id);
+		return ResponseEntity.status(HttpStatus.OK).body(ClienteDTO);
 	}
 }

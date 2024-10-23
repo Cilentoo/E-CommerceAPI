@@ -1,0 +1,12 @@
+{"properties": [
+  {
+    "name": "dominio.openapi.prod-url",
+    "type": "java.lang.String",
+    "description": "A description for 'dominio.openapi.prod-url'"
+  },
+  {
+    "name": "dominio.openapi.dev-url",
+    "type": "java.lang.String",
+    "description": "A description for 'dominio.openapi.dev-url'"
+  }
+]}

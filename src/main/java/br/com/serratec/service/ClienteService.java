@@ -3,16 +3,15 @@ package br.com.serratec.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
 import br.com.serratec.dto.ClienteReponseDTO;
 import br.com.serratec.dto.ClienteRequestDTO;
 import br.com.serratec.exception.EmailException;
+import br.com.serratec.exception.IdException;
 import br.com.serratec.model.Cliente;
 import br.com.serratec.model.Endereco;
 import br.com.serratec.repository.ClienteRepository;
@@ -36,6 +35,13 @@ public class ClienteService {
 		}
 		return dtos;
 	}
+	
+    public ClienteReponseDTO listarPorId(Long id) {
+        Cliente cliente = clienteRepository.findById(id)
+            .orElseThrow(() -> new IdException("Id do cliente não encontrado."));
+
+        return new ClienteReponseDTO(cliente);
+    }
 	
 	public ClienteReponseDTO inserir(ClienteRequestDTO dto) {
 		Optional<Cliente> c = clienteRepository.findByEmail(dto.getEmail());
