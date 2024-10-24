@@ -1,6 +1,10 @@
 package br.com.serratec.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.serratec.model.Cliente;
+import br.com.serratec.model.Pedido;
 
 public class ClienteReponseDTO {
 	
@@ -9,6 +13,7 @@ public class ClienteReponseDTO {
 	private String email;
 	private String complemento;
 	private String numero;
+	private List<PedidoResponseDTO> pedidosResponseDTO = new ArrayList<>();
 	
 	public ClienteReponseDTO(Cliente cliente) {
 		this.nome = cliente.getNome();
@@ -16,6 +21,11 @@ public class ClienteReponseDTO {
 		this.email = cliente.getEmail();
 		this.complemento = cliente.getComplemento();
 		this.numero = cliente.getNumero();
+		if (cliente.getPedidos() != null) {
+			for (Pedido pedido : cliente.getPedidos()) {
+				pedidosResponseDTO.add(new PedidoResponseDTO(pedido));
+			}
+		}
 	}
 
 	public String getNome() {
@@ -58,5 +68,10 @@ public class ClienteReponseDTO {
 		this.numero = numero;
 	}
 	
-	
+	public List<PedidoResponseDTO> getPedidosResponseDTO() {
+		return pedidosResponseDTO;
+	}
+	public void setPedidosResponseDTO(List<PedidoResponseDTO> pedidosResponseDTO) {
+		this.pedidosResponseDTO = pedidosResponseDTO;
+	}
 }

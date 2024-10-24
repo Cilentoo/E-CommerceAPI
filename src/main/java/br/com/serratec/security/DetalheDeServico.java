@@ -9,15 +9,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import br.com.serratec.model.Cliente;
+import br.com.serratec.model.User;
 import br.com.serratec.repository.ClienteRepository;
+import br.com.serratec.repository.UserRepository;
 
 @Component
 public class DetalheDeServico implements UserDetailsService {
 	@Autowired
-	private ClienteRepository repository;
+	private UserRepository repository;
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-	    Cliente user = this.repository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
+	    User user = this.repository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
 	    return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
 	}	
 }

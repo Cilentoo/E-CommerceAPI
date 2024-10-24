@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import br.com.serratec.model.Cliente;
-import br.com.serratec.repository.ClienteRepository;
+import br.com.serratec.model.User;
+import br.com.serratec.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,7 +23,7 @@ public class SecurityFilter extends OncePerRequestFilter { // Executa 1x pra cad
     @Autowired
     TokenService tokenService;
     @Autowired
-    ClienteRepository clienteRepository;
+    UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -30,8 +31,8 @@ public class SecurityFilter extends OncePerRequestFilter { // Executa 1x pra cad
         var login = tokenService.validaToken(token);
 
         if(login != null){
-            Cliente user = clienteRepository.findByEmail(login).orElseThrow(() -> new RuntimeException("Não encontrado!"));
-            var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_CLIENTE"));
+            User user = userRepository.findByEmail(login).orElseThrow(() -> new RuntimeException("Não encontrado!"));
+            var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_ADMIN"));
             var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }

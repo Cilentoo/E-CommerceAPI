@@ -9,7 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
+import br.com.serratec.exception.IdException;
+import br.com.serratec.config.MailConfig;
 import br.com.serratec.dto.ClienteReponseDTO;
 import br.com.serratec.dto.ClienteRequestDTO;
 import br.com.serratec.exception.EmailException;
@@ -24,6 +25,8 @@ public class ClienteService {
 	@Autowired 
 	private ClienteRepository clienteRepository;
 	
+	@Autowired
+	private MailConfig mailConfig;
 	
 	@Autowired 
 	private EnderecoRepository enderecoRepository;
@@ -36,6 +39,13 @@ public class ClienteService {
 		}
 		return dtos;
 	}
+    
+	public ClienteReponseDTO listarPorId(Long id) {
+        Cliente cliente = clienteRepository.findById(id)
+            .orElseThrow(() -> new IdException("Id do cliente não encontrado."));
+        return new ClienteReponseDTO(cliente);
+    }
+	
 	
 	public ClienteReponseDTO inserir(ClienteRequestDTO dto) {
 		Optional<Cliente> c = clienteRepository.findByEmail(dto.getEmail());
@@ -50,7 +60,7 @@ public class ClienteService {
 		cliente.setComplemento(dto.getComplemento());
 		cliente.setNumero(dto.getNumero());
 		
-		var endereco = Optional.ofNullable(enderecoRepository.findByCep(dto.getCep()));
+		Optional<Endereco> endereco = Optional.ofNullable(enderecoRepository.findByCep(dto.getCep()));
 		if (endereco.isPresent()) {;
 			cliente.setEndereco(endereco.get());
 		}
@@ -61,7 +71,7 @@ public class ClienteService {
 			if (viaCep != null && viaCep.get().getCep() != null) {
 				viaCep.get().setCep(dto.getCep());
 				enderecoRepository.save(viaCep.get());
-				cliente.setEndereco(endereco.get());
+				cliente.setEndereco(viaCep.get());
 			}else {
 				throw new HttpClientErrorException(HttpStatus.NOT_FOUND);
 			}
@@ -74,8 +84,9 @@ public class ClienteService {
 		//endereco.setUf(enderecoDTO.getUf());
 		
 		//cliente.setEndereco(endereco);
-		cliente = clienteRepository.save(cliente);
 		
+		cliente = clienteRepository.save(cliente);
+		mailConfig.sendEmail(cliente.getEmail(), "Confirmação de Cadastro", cliente.toString());
 		return new ClienteReponseDTO(cliente);
 	}
 }

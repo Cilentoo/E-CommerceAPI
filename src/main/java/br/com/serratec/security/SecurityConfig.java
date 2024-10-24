@@ -34,8 +34,8 @@ public class SecurityConfig {
                 		.requestMatchers(HttpMethod.POST, "/auth/login").permitAll() // Permite acesso ao login
                         .requestMatchers(HttpMethod.POST, "/auth/cadastro").permitAll() // Permite acesso ao cadastro
                         .requestMatchers("/h2-console/**").permitAll() // Permite acesso ao H2 Console
-                        .requestMatchers(HttpMethod.POST, "/XXX").hasRole("ADMIN") // Definir o que será de permissão do admin
-                        .requestMatchers(HttpMethod.POST, "/XXX").hasRole("CLIENTE") // Definir o que será de permissão do admin                        
+                        .requestMatchers(HttpMethod.POST, "/ADMIN/**").hasRole("ADMIN") // Definir o que será de permissão do admin
+                        .requestMatchers(HttpMethod.GET, "/USER/**").hasRole("USER") // Definir o que será de permissão do user                       
                         .anyRequest().authenticated() // Qualquer outra requisição deve ser autenticada
                 )                
                 .headers((headers) -> headers.disable()) // Permite que o H2 Console funcione

@@ -370,3 +370,6 @@ SELECT * FROM produtos [42102-224]
 2024-10-23 16:58:41.276909-03:00 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT * FROM CLIENTE USERS [*]CLIENTE"; SQL statement:
 SELECT * FROM CLIENTE USERS CLIENTE [42000-224]
+2024-10-24 16:05:56.173291-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]DEKETE FROM USERS WHERE ID=1"; expected "DELETE, DROP"; SQL statement:
+DEKETE FROM USERS WHERE ID=1 [42001-224]

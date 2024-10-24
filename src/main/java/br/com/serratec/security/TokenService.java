@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 
 import br.com.serratec.model.Cliente;
+import br.com.serratec.model.User;
 
 @Service
 public class TokenService {
@@ -19,13 +20,13 @@ public class TokenService {
 	@Value("${api.security.token.secret}")
 	private String secret;
 	
-	public String generateToken(Cliente user) {
+	public String generateToken(User newUser) {
 		try {
 			Algorithm algoritmo = Algorithm.HMAC256(secret);
 			
 			String token = JWT.create()
 					.withIssuer("login-auth-api")
-					.withSubject(user.getEmail())
+					.withSubject(newUser.getEmail())
 					.withExpiresAt(this.generateExpirationDate())
 					.sign(algoritmo);
 			return token;
