@@ -7,10 +7,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 
 @Configuration
 public class MailConfig {
-	
+
 	@Autowired
 	private JavaMailSender javaMailSender;
-	
+
 	public void sendEmail(String destinatario, String assunto, String texto) {
 		SimpleMailMessage mail = new SimpleMailMessage();
 		mail.setFrom("daiane.c.santos11@aluno.senai.br");

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.com.serratec.dto.ProdutoRequestDTO;
 import br.com.serratec.dto.ProdutoResponseDTO;
+import br.com.serratec.enums.CategoriaEnum;
 import br.com.serratec.model.Produto;
 import br.com.serratec.repository.ProdutoRepository;
 import jakarta.transaction.Transactional;
@@ -18,6 +19,10 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	
+	
+	public List<Produto> listarPorCategoria(CategoriaEnum categoriaEnum) {
+        return produtoRepository.findByCategoriaEnum(categoriaEnum);
+    }
 	
 	public Produto buscar(Long id) {
 		Optional<Produto> produto = produtoRepository.findById(id);

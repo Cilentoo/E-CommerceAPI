@@ -53,6 +53,9 @@ public class Cliente {
 	@OneToMany
 	private List<Pedido> pedido;
 
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_endereco")
 	private Endereco endereco;
@@ -68,6 +71,13 @@ public class Cliente {
 		this.id = id;
 	}
 
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
@@ -123,5 +133,12 @@ public class Cliente {
 	public void setNumero(String numero) {
 		this.numero = numero;
 	}
+
+	@Override
+	public String toString() {
+		return "Id:" + id + "\n" + "Nome:" + nome + "\n" + "Email:" + email + "\n";
+	}
+
+
 
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import br.com.serratec.dto.CadastroRequestDTO;
 import br.com.serratec.dto.ClienteReponseDTO;
 import br.com.serratec.dto.ClienteRequestDTO;
@@ -21,6 +21,8 @@ import br.com.serratec.model.Cliente;
 import br.com.serratec.repository.ClienteRepository;
 import br.com.serratec.security.TokenService;
 import br.com.serratec.service.ClienteService;
+import org.springframework.http.HttpStatus;
+
 
 @RestController
 @RequestMapping("/auth")
@@ -30,7 +32,14 @@ public class ClienteController {
     private final PasswordEncoder passwordEncoder;
     private final TokenService tokenService;    
     private final ClienteService service;
-
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<ClienteReponseDTO> listarPorId(@PathVariable Long id) {
+		ClienteReponseDTO ClienteDTO = service.listarPorId(id);
+		return ResponseEntity.status(HttpStatus.OK).body(ClienteDTO);
+	}
+    
+    
     @Autowired
     public ClienteController(ClienteRepository repository, PasswordEncoder passwordEncoder, 
                              TokenService tokenService, ClienteService service) {

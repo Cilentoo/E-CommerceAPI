@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
+import br.com.serratec.service.ComentarioService;
 import br.com.serratec.dto.ProdutoRequestDTO;
 import br.com.serratec.dto.ProdutoResponseDTO;
+import br.com.serratec.enums.CategoriaEnum;
 import br.com.serratec.model.Produto;
 import br.com.serratec.service.ProdutoService;
 import jakarta.validation.Valid;
-
+import br.com.serratec.model.Comentarios;
+import br.com.serratec.dto.ComentariosRequestDTO;
 
 @RestController
 @RequestMapping("/produtos")
@@ -26,6 +28,22 @@ public class ProdutoController {
 	
 	@Autowired
 	private ProdutoService service;
+	
+	
+    @GetMapping("/categoria/{nomeCategoria}")
+    public List<Produto> listarPorCategoria(@PathVariable String nomeCategoria) {
+        CategoriaEnum categoriaEnum = CategoriaEnum.verifica(nomeCategoria); 
+        return service.listarPorCategoria(categoriaEnum);  
+    }
+	
+	@Autowired
+	private ComentarioService comentarioService;
+	
+	@PostMapping("/{id}/comentarios")
+	public ResponseEntity<Comentarios> adicionarComentario(@PathVariable long id, @RequestBody ComentariosRequestDTO comentariosDTO){
+		Comentarios novoComentarios = comentarioService.adicionarComentario(id, comentariosDTO);
+		return ResponseEntity.status(HttpStatus.CREATED).body(novoComentarios);
+	}
 	
 	// Listagem por id
 	@GetMapping("/{id}")
