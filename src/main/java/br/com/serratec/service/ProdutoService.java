@@ -15,15 +15,14 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class ProdutoService {
-	
+
 	@Autowired
 	private ProdutoRepository produtoRepository;
-	
-	
+
 	public List<Produto> listarPorCategoria(CategoriaEnum categoriaEnum) {
-        return produtoRepository.findByCategoriaEnum(categoriaEnum);
-    }
-	
+		return produtoRepository.findByCategoriaEnum(categoriaEnum);
+	}
+
 	public Produto buscar(Long id) {
 		Optional<Produto> produto = produtoRepository.findById(id);
 		if (produto.isPresent()) {
@@ -31,23 +30,44 @@ public class ProdutoService {
 		}
 		return null;
 	}
-	
+
 	@Transactional
 	public ProdutoResponseDTO save(ProdutoRequestDTO produtoDto) {
 		Produto produto = new Produto();
 		produto.setNome(produtoDto.getNome());
 		produto.setTamanho(produtoDto.getTamanho());
 		produto.setCategoriaEnum(produtoDto.getCategoria());
-		//produtoRepository.save(produto);
-		
+		// produtoRepository.save(produto);
+
 		Produto produtoSalvo = produtoRepository.save(produto);
-		
+
 		return new ProdutoResponseDTO(produtoSalvo);
 	}
-	
+
 	// Lista todos os produtos
 	public List<Produto> listarTodos() {
-	    return produtoRepository.findAll();
+		return produtoRepository.findAll();
+	}
+
+	@Transactional
+	public ProdutoResponseDTO atualizarProduto(Long id, ProdutoRequestDTO produtoDto) {
+		Produto produto = produtoRepository.findById(id)
+				.orElseThrow(() -> new RuntimeException("Produto não encontrado com o ID: " + id));
+
+		produto.setNome(produtoDto.getNome());
+		produto.setTamanho(produtoDto.getTamanho());
+		produto.setCategoriaEnum(produtoDto.getCategoria());
+
+		Produto produtoAtualizado = produtoRepository.save(produto);
+		return new ProdutoResponseDTO(produtoAtualizado);
+	}
+
+	@Transactional
+	public void deletarProduto(Long id) {
+		if (!produtoRepository.existsById(id)) {
+			throw new RuntimeException("Produto não encontrado com o ID: " + id);
+		}
+		produtoRepository.deleteById(id);
 	}
 
 }
